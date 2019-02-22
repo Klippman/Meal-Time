@@ -1,0 +1,15 @@
+/* create recipe button animation (index.html) */
+button#create_recipe {
+    border: 0;
+    font-family: inherit;
+    font-size: 100%;
+    padding: 0;
+}
+
+#create_recipe a:link, a:visited {
+    text-decoration: none;
+}
+
+#create_recipe a:hover {
+    color: hotpink;
+}
