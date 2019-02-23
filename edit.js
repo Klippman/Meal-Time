@@ -1,13 +1,4 @@
-const ingredients = [{
-    name: 'pepper',
-    completed: false
-},{
-    name: 'salt',
-    completed: false
-},{
-    name: 'oregano',
-    completed: false
-}]
+const ingredients = []
 
 const ingredientFilters = {
     searchText: '',
@@ -25,6 +16,12 @@ const renderIngredients = (ingredients, ingredientFilters) => {
     const ingredientEl = document.createElement('p')
     ingredientEl.textContent = ingredient.name
     document.querySelector('#ingredients').appendChild(ingredientEl)
+
+        
+    const checkBox = document.createElement('input')
+    checkBox.checked = ingredient.completed
+    checkBox.setAttribute('type', 'checkbox')
+    document.querySelector('p').appendChild(checkBox)
     })
 }
 
@@ -37,9 +34,10 @@ document.querySelector('input').addEventListener('input', (e) => {
 
 // Add a new ingredient
 document.querySelector('#ingredient_form').addEventListener('submit', (e) => {
+    const ingredient = e.target.elements.addIngredient.value.trim()
     e.preventDefault()
     ingredients.push({
-        name: e.target.elements.addIngredient.value,
+        name: ingredient,
         completed: false
     })
     renderIngredients(ingredients, ingredientFilters)
