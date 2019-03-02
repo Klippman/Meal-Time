@@ -1,6 +1,7 @@
 // Read existing notes from localStorage
 const getSavedIngredients = function () {
     const ingredientsJSON = localStorage.getItem('ingredients')
+    
         if (ingredientsJSON !== null) {
             return JSON.parse(ingredientsJSON)
         } else {
