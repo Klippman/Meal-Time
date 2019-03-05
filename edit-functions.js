@@ -1,5 +1,5 @@
 // Read existing notes from localStorage
-const getSavedIngredients = function () {
+const getSavedIngredients = () => {
     const ingredientsJSON = localStorage.getItem('ingredients')
     
         if (ingredientsJSON !== null) {
@@ -10,12 +10,12 @@ const getSavedIngredients = function () {
 }
 
 // Save ingredients to localStorage
-const saveIngredients = function (ingredients) {
+const saveIngredients = (ingredients) => {
     localStorage.setItem('ingredients', JSON.stringify(ingredients))
 }
 
 // Remove ingredient from the list
-const removeIngredient = function (id) {
+const removeIngredient = (id) => {
     const ingredientIndex = ingredients.findIndex(function (ingredient) {
         return ingredient.id === id
     })
@@ -25,8 +25,19 @@ const removeIngredient = function (id) {
     }
 }
 
+// Toggle/hide completed ingredients
+const toggleIngredient = (id) => {
+    const toggleIndex = ingredients.find((ingredient) => {
+        return ingredient.id === id
+    })
+
+    if (toggleIndex !== undefined) {
+        toggleIndex.completed = !toggleIndex.completed
+    }
+}
+
 // Generate DOM structure for ingredient
-const generateIngredientDOM = function (ingredient) {
+const generateIngredientDOM = (ingredient) => {
     const ingredientName = document.createElement('label')
     
     if (ingredient.name.length > 0) {
@@ -41,7 +52,10 @@ const generateIngredientDOM = function (ingredient) {
 // Render application ingredients
 const renderIngredients = (ingredients, ingredientFilters) => {
     const filteredIngredients = ingredients.filter((ingredient) => {
-        return ingredient.name.toLowerCase().includes(ingredientFilters.searchText.toLowerCase())
+        const searchTextMatch = ingredient.name.toLowerCase().includes(ingredientFilters.searchText.toLowerCase())
+        const hideCompletedMatch = !ingredientFilters.hideCompleted || !ingredient.completed
+
+        return searchTextMatch && hideCompletedMatch 
     })
 
     document.querySelector('#ingredients').innerHTML = ''
@@ -58,11 +72,16 @@ const renderIngredients = (ingredients, ingredientFilters) => {
         // Setup checkbox
         checkBox.checked = ingredient.completed
         checkBox.setAttribute('type', 'checkbox')
+        checkBox.addEventListener('change', function () {
+            toggleIngredient(ingredient.id)
+            saveIngredients(ingredients)
+            renderIngredients(ingredients, ingredientFilters)
+        })
 
         // Setup remove button
         removeEl.textContent = 'Remove'
         removeEl.classList.add('remove_button')
-        removeEl.addEventListener('click', function () {
+        removeEl.addEventListener('click', () => {
             removeIngredient(ingredient.id)
             saveIngredients(ingredients)
             renderIngredients(ingredients, ingredientFilters)

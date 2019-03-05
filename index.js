@@ -1,13 +1,4 @@
-const recipes = [{
-    name: 'Chicken',
-    completed: false
-}, {
-    name: 'Catfish',
-    completed: false
-}, {
-    name: 'Beef', 
-    completed: false
-}]
+const recipes = getSavedRecipes()
 
 const filters = {
     searchText: ''
@@ -22,8 +13,24 @@ const renderRecipes = (recipes, filters) => {
     
     filteredRecipes.forEach((recipe) => {
         const recipeEl = document.createElement('p')
-        recipeEl.textContent = recipe.name
+        const recipeName = document.createElement('a')
+        const deleteEl = document.createElement('button')
+
         document.querySelector('#recipes').appendChild(recipeEl)
+
+        recipeName.textContent = recipe.name
+        recipeName.setAttribute('href', '/edit.html')
+
+        deleteEl.textContent = 'Remove'
+        deleteEl.classList.add('delete_button')
+        deleteEl.addEventListener('click', (id) => {
+            deleteRecipe(recipe.id)
+            saveRecipes(recipes)
+            renderRecipes(recipes, filters)
+        })
+
+        recipeEl.appendChild(deleteEl)
+        recipeEl.appendChild(recipeName)
     })
 }
 
@@ -33,6 +40,7 @@ const availRecipes = recipes.filter((recipe) => {
     return !recipe.completed
 })
 
+// Input field listening for pressed keys
 document.querySelector('input').addEventListener('input', (e) => {
     filters.searchText = e.target.value
     renderRecipes(recipes, filters)
@@ -40,13 +48,17 @@ document.querySelector('input').addEventListener('input', (e) => {
 
 // Add new recipe name to the array
 document.querySelector('#recipe_form').addEventListener('submit', (e) => {
+    const recipe = e.target.elements.addRecipe.value.trim()
+    const recipeId = uuidv4()
     e.preventDefault()
     recipes.push({
-        name: e.target.elements.createRecipe.value,
+        id: recipeId, 
+        name: recipe,
         completed: false
     })
+    saveRecipes(recipes)
     renderRecipes(recipes, filters)
-    e.target.elements.createRecipe.value = ''
+    e.target.elements.addRecipe.value = ''
 })
     
 

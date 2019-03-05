@@ -21,3 +21,9 @@ document.querySelector('#ingredient_form').addEventListener('submit', (e) => {
     renderIngredients(ingredients, ingredientFilters)
     e.target.elements.addIngredient.value = ''
 })
+
+// Toggle completed 
+document.querySelector('#hide-completed').addEventListener('change', (e) => {
+    ingredientFilters.hideCompleted = e.target.checked
+    renderIngredients(ingredients, ingredientFilters)
+})
