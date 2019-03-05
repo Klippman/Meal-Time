@@ -14,16 +14,27 @@ const saveIngredients = function (ingredients) {
     localStorage.setItem('ingredients', JSON.stringify(ingredients))
 }
 
+// Remove ingredient from the list
+const removeIngredient = function (id) {
+    const ingredientIndex = ingredients.findIndex(function (ingredient) {
+        return ingredient.id === id
+    })
+
+    if (ingredientIndex > -1) {
+        ingredients.splice(ingredientIndex, 1)
+    }
+}
+
 // Generate DOM structure for ingredient
 const generateIngredientDOM = function (ingredient) {
     const ingredientName = document.createElement('label')
-
+    
     if (ingredient.name.length > 0) {
         ingredientName.textContent = ingredient.name
     } else {
         ingredientName.textContent = 'Unnamed Ingredient'
     }
-
+    
     return ingredientName
 }
 
@@ -44,14 +55,22 @@ const renderIngredients = (ingredients, ingredientFilters) => {
     
         document.querySelector('#ingredients').appendChild(ingredientEl)
     
+        // Setup checkbox
         checkBox.checked = ingredient.completed
         checkBox.setAttribute('type', 'checkbox')
-        removeEl.innerHTML = 'Remove'
+
+        // Setup remove button
+        removeEl.textContent = 'Remove'
         removeEl.classList.add('remove_button')
+        removeEl.addEventListener('click', function () {
+            removeIngredient(ingredient.id)
+            saveIngredients(ingredients)
+            renderIngredients(ingredients, ingredientFilters)
+        })
 
         // Add all elements to the ingredientEl as you create them
-        ingredientEl.appendChild(checkBox)
-        ingredientEl.appendChild(ingredientName)
         ingredientEl.appendChild(removeEl)
+        ingredientEl.appendChild(ingredientName)
+        ingredientEl.appendChild(checkBox)
     })
 }

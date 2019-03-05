@@ -13,3 +13,10 @@ button#create_recipe {
 #create_recipe a:hover {
     color: hotpink;
 }
+
+
+/* Remove button styling */
+.remove_button:focus {
+    color: red;
+    background-color: yellowgreen;
+}

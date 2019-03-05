@@ -17,7 +17,7 @@ const renderRecipes = (recipes, filters) => {
     const filteredRecipes = recipes.filter((recipe) => {
         return recipe.name.toLowerCase().includes(filters.searchText.toLowerCase())
     })
-
+    
     document.querySelector('#recipes').innerHTML = ''
     
     filteredRecipes.forEach((recipe) => {
