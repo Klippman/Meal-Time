@@ -24,3 +24,34 @@ const deleteRecipe = (id) => {
         recipes.splice(recipeIndex, 1)
     }
 }
+
+// Render application recipes
+const renderRecipes = (recipes, filters) => {
+    const filteredRecipes = recipes.filter((recipe) => {
+        return recipe.name.toLowerCase().includes(filters.searchText.toLowerCase())
+    })
+    
+    document.querySelector('#recipes').innerHTML = ''
+    
+    filteredRecipes.forEach((recipe) => {
+        const recipeEl = document.createElement('p')
+        const recipeName = document.createElement('a')
+        const deleteEl = document.createElement('button')
+
+        document.querySelector('#recipes').appendChild(recipeEl)
+
+        recipeName.textContent = recipe.name
+        recipeName.setAttribute('href', `/edit.html#${recipe.id}`)
+
+        deleteEl.textContent = 'Remove'
+        deleteEl.classList.add('delete_button')
+        deleteEl.addEventListener('click', (id) => {
+            deleteRecipe(recipe.id)
+            saveRecipes(recipes)
+            renderRecipes(recipes, filters)
+        })
+
+        recipeEl.appendChild(deleteEl)
+        recipeEl.appendChild(recipeName)
+    })
+}
