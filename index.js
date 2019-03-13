@@ -1,7 +1,8 @@
 const recipes = getSavedRecipes()
 
 const filters = {
-    searchText: ''
+    searchText: '',
+    hideCompleted: false
 }
 
 renderRecipes(recipes, filters)
@@ -24,6 +25,8 @@ document.querySelector('#recipe_form').addEventListener('submit', (e) => {
     recipes.push({
         id, 
         name: recipe,
+        body: '',
+        ingredients: [],
         completed: false
     })
     saveRecipes(recipes)

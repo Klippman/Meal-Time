@@ -1,18 +1,18 @@
-// Read existing notes from localStorage
-const getSavedIngredients = () => {
-    const ingredientsJSON = localStorage.getItem('ingredients')
+// // Read existing notes from localStorage
+// const getSavedIngredients = () => {
+//     const ingredientsJSON = localStorage.getItem('ingredients')
     
-        if (ingredientsJSON !== null) {
-            return JSON.parse(ingredientsJSON)
-        } else {
-            return []
-        }
-}
+//         if (ingredientsJSON !== null) {
+//             return JSON.parse(ingredientsJSON)
+//         } else {
+//             return []
+//         }
+// }
 
-// Save ingredients to localStorage
-const saveIngredients = (ingredients) => {
-    localStorage.setItem('ingredients', JSON.stringify(ingredients))
-}
+// // Save ingredients to localStorage
+// const saveIngredients = (ingredients) => {
+//     localStorage.setItem('ingredients', JSON.stringify(ingredients))
+// }
 
 // Remove ingredient from the list
 const removeIngredient = (id) => {
@@ -74,7 +74,7 @@ const renderIngredients = (ingredients, ingredientFilters) => {
         checkBox.setAttribute('type', 'checkbox')
         checkBox.addEventListener('change', function () {
             toggleIngredient(ingredient.id)
-            saveIngredients(ingredients)
+            saveRecipes(recipes)
             renderIngredients(ingredients, ingredientFilters)
         })
 
@@ -83,7 +83,7 @@ const renderIngredients = (ingredients, ingredientFilters) => {
         removeEl.classList.add('remove_button')
         removeEl.addEventListener('click', () => {
             removeIngredient(ingredient.id)
-            saveIngredients(ingredients)
+            saveRecipes(recipes)
             renderIngredients(ingredients, ingredientFilters)
         })
 

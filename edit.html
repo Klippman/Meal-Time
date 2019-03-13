@@ -10,12 +10,14 @@
     <body>
         <div class="container-edit">
             <h1>Create Your Hankering!</h1>
-            <a href="/index.html">Home</a>
-            <div>
+            <span>
+                <a href="/index.html">Home</a>
+            </span>
+            <div id="text-area">
                 <textarea id="instruction_body" cols="30" rows="10" placeholder="Instructions..."></textarea>
             </div>
             <form id="ingredient_form">
-                <input type="text" placeholder="Add Ingredient" name="addIngredient">
+                <input id="ingredient_field" type="text" placeholder="Add Ingredient" name="addIngredient">
                 <button>Add Ingredient</button>
             </form>
             <label>
@@ -27,8 +29,6 @@
             <script src="uuidv4.js"></script>
             <script src="index-functions.js"></script>
             <script src="index-edit.js"></script>
-            <script src="ingredient-functions.js"></script>
-            <script src="ingredient.js"></script>
         </div>
     </body>
 </html>

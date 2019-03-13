@@ -1,7 +1,6 @@
 // Read existing recipes in localStorage
 const getSavedRecipes = () => {
     const recipesJSON = localStorage.getItem('recipes')
-    
         if (recipesJSON !== null) {
             return JSON.parse(recipesJSON)
         } else {
@@ -28,12 +27,14 @@ const deleteRecipe = (id) => {
 // Render application recipes
 const renderRecipes = (recipes, filters) => {
     const filteredRecipes = recipes.filter((recipe) => {
-        return recipe.name.toLowerCase().includes(filters.searchText.toLowerCase())
+        const searchTextMatch = recipe.name.toLowerCase().includes(filters.searchText.toLowerCase())
+        const hideCompletedMatch = !filters.hideCompleted || !recipe.completed
+            return searchTextMatch && hideCompletedMatch
     })
     
     document.querySelector('#recipes').innerHTML = ''
     
-    filteredRecipes.forEach((recipe) => {
+    filteredRecipes.map(recipe => {
         const recipeEl = document.createElement('p')
         const recipeName = document.createElement('a')
         const deleteEl = document.createElement('button')
