@@ -1,9 +1,9 @@
 // Read existing recipes in localStorage
 const getSavedRecipes = () => {
     const recipesJSON = localStorage.getItem('recipes')
-        if (recipesJSON !== null) {
-            return JSON.parse(recipesJSON)
-        } else {
+        try {
+            return recipesJSON ? JSON.parse(recipesJSON) : []
+        } catch (e) {
             return []
         }
 }
@@ -26,20 +26,22 @@ const deleteRecipe = (id) => {
 
 // Render application recipes
 const renderRecipes = (recipes, filters) => {
+    const recipeElContainer = document.querySelector('#recipes')
     const filteredRecipes = recipes.filter((recipe) => {
         const searchTextMatch = recipe.name.toLowerCase().includes(filters.searchText.toLowerCase())
         const hideCompletedMatch = !filters.hideCompleted || !recipe.completed
+
             return searchTextMatch && hideCompletedMatch
     })
     
-    document.querySelector('#recipes').innerHTML = ''
+    recipeElContainer.innerHTML = ''
     
     filteredRecipes.map(recipe => {
         const recipeEl = document.createElement('p')
         const recipeName = document.createElement('a')
         const deleteEl = document.createElement('button')
 
-        document.querySelector('#recipes').appendChild(recipeEl)
+        recipeElContainer.appendChild(recipeEl)
 
         recipeName.textContent = recipe.name
         recipeName.setAttribute('href', `/edit.html#${recipe.id}`)
@@ -56,3 +58,58 @@ const renderRecipes = (recipes, filters) => {
         recipeEl.appendChild(recipeName)
     })
 }
+
+// Generate DOM structure for ingredient
+const generateIngredientDOM = (ingredient) => {
+    const ingredientName = document.createElement('label')
+    
+    if (ingredient.name.length > 0) {
+        ingredientName.textContent = ingredient.name
+    } else {
+        ingredientName.textContent = 'Unnamed Ingredient'
+    }
+    
+    return ingredientName
+}
+
+const renderIngredients = (recipes) => {
+    const ingredientElContainer = document.querySelector('#ingredients')
+    
+    ingredientElContainer.innerHTML = ''
+
+    recipe.ingredients.map(ingredient => {
+        // Create a container for the ingredients
+        const ingredientEl = document.createElement('p')
+        const ingredientName = generateIngredientDOM(ingredient)
+        const checkBox = document.createElement('input')
+        const removeEl = document.createElement('button')
+    
+        ingredientElContainer.appendChild(ingredientEl)
+
+        ingredientName.textContent = ingredient.name
+    
+        // Setup checkbox
+        checkBox.checked = ingredient.completed
+        checkBox.setAttribute('type', 'checkbox')
+        checkBox.addEventListener('change', function () {
+            toggleIngredient(ingredient.name)
+            saveRecipes(recipes)
+            renderIngredients(recipes)
+        })
+
+        // Setup remove button
+        removeEl.textContent = 'Remove'
+        removeEl.classList.add('remove_button')
+        removeEl.addEventListener('click', () => {
+            removeIngredient(ingredient.name)
+            saveRecipes(recipes)
+            renderIngredients(recipes)
+        })
+
+        // Add all elements to the ingredientEl as you create them
+        ingredientEl.appendChild(removeEl)
+        ingredientEl.appendChild(checkBox)
+    })
+}
+
+
