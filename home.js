@@ -22,7 +22,7 @@ class RecipeListPage {
       this.recipes.push(recipe);
       RecipeStore.save(this.recipes);
       e.target.elements.addRecipe.value = '';
-      location.assign(`/edit.html#${recipe.id}`);
+      location.assign(`edit.html#${recipe.id}`);
     });
   }
 
@@ -41,7 +41,7 @@ class RecipeListPage {
       const deleteEl = document.createElement('button');
 
       recipeName.textContent = recipe.name;
-      recipeName.setAttribute('href', `/edit.html#${recipe.id}`);
+      recipeName.setAttribute('href', `edit.html#${recipe.id}`);
 
       deleteEl.textContent = 'Remove';
       deleteEl.classList.add('delete_button');
