@@ -6,7 +6,7 @@ class RecipeEditPage {
     this.filters = { searchText: '', hideCompleted: false };
 
     if (!this.recipe) {
-      location.assign('/index.html');
+      location.assign('index.html');
       return;
     }
 
