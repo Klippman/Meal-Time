@@ -1,44 +1,472 @@
-/* * {
+/* Reset & Global */
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-} */
+}
 
-/* create recipe button animation (index.html) */
-button#create_recipe {
-    border: 0;
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(160deg, #01204E 0%, #013a6b 40%, #028391 70%, #03a0a8 100%);
+    min-height: 100vh;
+    color: #01204E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* =====================
+   DEVICE FRAME
+   ===================== */
+.container-index,
+.container-edit {
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #F6DCAC 0%, #fff9f0 20%, #fffdf8 100%);
+    border-radius: 40px;
+    padding: 60px 28px 36px;
+    box-shadow:
+        0 0 0 3px #01204E,
+        0 0 0 6px #028391,
+        0 0 0 8px #01204E,
+        0 20px 60px rgba(1, 32, 78, 0.5),
+        0 0 80px rgba(2, 131, 145, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Notch */
+.container-index::before,
+.container-edit::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 28px;
+    background: #01204E;
+    border-radius: 0 0 18px 18px;
+    z-index: 10;
+}
+
+/* Camera dot inside notch */
+.container-index::after,
+.container-edit::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(30px);
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, #028391 40%, #01204E 70%);
+    border-radius: 50%;
+    z-index: 11;
+    box-shadow: 0 0 3px rgba(2, 131, 145, 0.5);
+}
+
+/* =====================
+   HEADINGS
+   ===================== */
+h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #01204E, #F85525);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+}
+
+/* =====================
+   LINKS
+   ===================== */
+a {
+    color: #028391;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #F85525;
+}
+
+/* =====================
+   INPUTS & TEXTAREA
+   ===================== */
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 2px solid #e8d5b0;
+    border-radius: 12px;
     font-family: inherit;
-    font-size: 100%;
-    padding: 0;
+    font-size: 0.9rem;
+    color: #01204E;
+    background: #fffdf8;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-#create_recipe a:link, a:visited {
-    text-decoration: none;
-}
-
-#create_recipe a:hover {
-    color: hotpink;
-}
-
-
-/* Remove button styling (edit.html) */
-.remove_button {
-    background-color: red;
-    color: yellowgreen;
-}
-
-.remove_button:focus {
-    background-color: yellowgreen;
-    color: red;
+input[type="text"]:focus,
+textarea:focus {
     outline: none;
+    border-color: #028391;
+    box-shadow: 0 0 0 3px rgba(2, 131, 145, 0.2);
 }
 
-/* recipe names/links (index.html) */
-#recipes a:link, a:visited {
-    text-decoration: none;
+textarea {
+    resize: vertical;
+    min-height: 130px;
+}
+
+/* =====================
+   BUTTONS
+   ===================== */
+button,
+form button {
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+/* Primary action buttons */
+form button {
+    background: linear-gradient(135deg, #028391, #01204E);
+    color: #F6DCAC;
+    box-shadow: 0 3px 12px rgba(2, 131, 145, 0.4);
+}
+
+form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(2, 131, 145, 0.5);
+}
+
+/* Forms layout */
+form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+form input[type="text"] {
+    flex: 1;
+}
+
+/* =====================
+   INDEX PAGE
+   ===================== */
+
+/* Filter input */
+.container-index > input#input {
+    margin-bottom: 14px;
+}
+
+/* Create Recipe button */
+button#create_recipe {
+    background: linear-gradient(135deg, rgba(2, 131, 145, 0.06), rgba(246, 220, 172, 0.15));
+    border: 2px dashed #028391;
+    border-radius: 12px;
+    color: #028391;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+    width: 100%;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+button#create_recipe:hover {
+    background: linear-gradient(135deg, rgba(2, 131, 145, 0.12), rgba(248, 85, 37, 0.06));
+    border-color: #01204E;
+    color: #01204E;
+    box-shadow: 0 2px 12px rgba(2, 131, 145, 0.15);
+}
+
+/* Recipe list rows */
+#recipes p {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: linear-gradient(135deg, #fffdf8, #F6DCAC33);
+    border: 1px solid #e8d5b0;
+    border-left: 4px solid #028391;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+#recipes p:hover {
+    box-shadow: 0 4px 15px rgba(2, 131, 145, 0.15);
+    transform: translateX(2px);
+}
+
+#recipes a {
+    flex: 1;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #01204E;
 }
 
 #recipes a:hover {
-    color: hotpink;
-    text-decoration: underline overline;
+    color: #F85525;
+}
+
+/* Delete button on index page */
+.delete_button {
+    background: linear-gradient(135deg, #F85525, #FAA968);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(248, 85, 37, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.delete_button:hover {
+    transform: scale(1.08);
+    filter: brightness(0.9);
+    box-shadow: 0 4px 14px rgba(248, 85, 37, 0.5);
+}
+
+/* =====================
+   EDIT PAGE
+   ===================== */
+
+/* Recipe name display */
+.container-edit #recipes {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #01204E;
+    background: linear-gradient(135deg, #F6DCAC55, #F6DCAC33);
+    padding: 10px 16px;
+    border-radius: 10px;
+    border-left: 4px solid #FAA968;
+    margin-bottom: 16px;
+}
+
+/* Home link */
+.container-edit > span {
+    display: inline-block;
+    margin-bottom: 14px;
+}
+
+.container-edit > span a {
+    font-size: 0.85rem;
+    color: #028391;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 8px;
+    background: rgba(2, 131, 145, 0.08);
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.container-edit > span a:hover {
+    background: rgba(2, 131, 145, 0.15);
+    color: #01204E;
+}
+
+.container-edit > span a::before {
+    content: "\2190\00a0";
+}
+
+/* Textarea & toolbar */
+#text-area {
+    margin-bottom: 18px;
+}
+
+#text-toolbar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+#text-toolbar button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: #F6DCAC44;
+    color: #01204E;
+    border: 1px solid #e8d5b0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+#text-toolbar button:hover {
+    background: #F6DCAC88;
+    border-color: #028391;
+    color: #028391;
+}
+
+#text-toolbar #btn-clear {
+    margin-left: auto;
+    color: #F85525;
+    border-color: #f5c8b8;
+    background: #fff5f0;
+}
+
+#text-toolbar #btn-clear:hover {
+    background: #ffe8e0;
+    border-color: #F85525;
+    color: #c43a10;
+}
+
+#text-toolbar button svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Ingredient form */
+#ingredient_form {
+    margin-bottom: 14px;
+}
+
+/* Hide completed label */
+.container-edit > label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #01204E;
+    margin-bottom: 18px;
+    cursor: pointer;
+    user-select: none;
+}
+
+#hide-completed {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #c8d5d8;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+#hide-completed:checked {
+    background: linear-gradient(135deg, #028391, #01204E);
+    border-color: #028391;
+}
+
+#hide-completed:checked::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 8px;
+    border: solid #F6DCAC;
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -60%) rotate(45deg);
+}
+
+/* Ingredient rows */
+#ingredients p {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, #fffdf8, #F6DCAC33);
+    border: 1px solid #e8d5b0;
+    border-left: 4px solid #FAA968;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+#ingredients p:hover {
+    box-shadow: 0 4px 15px rgba(250, 169, 104, 0.2);
+    transform: translateX(2px);
+}
+
+#ingredients label {
+    flex: 1;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #01204E;
+}
+
+/* Remove button (edit.html) */
+.remove_button {
+    background: linear-gradient(135deg, #F85525, #FAA968);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(248, 85, 37, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.remove_button:hover {
+    transform: scale(1.08);
+    filter: brightness(0.9);
+    box-shadow: 0 4px 14px rgba(248, 85, 37, 0.5);
+}
+
+.remove_button:focus {
+    outline: 2px solid #028391;
+    outline-offset: 2px;
+}
+
+/* Custom checkbox (edit.html ingredients) */
+#ingredients input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2.5px solid transparent;
+    border-radius: 6px;
+    background:
+        linear-gradient(#fffdf8, #fffdf8) padding-box,
+        linear-gradient(135deg, #F85525, #FAA968, #028391) border-box;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+}
+
+#ingredients input[type="checkbox"]::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 10px;
+    border: solid #028391;
+    border-width: 0 2.5px 2.5px 0;
+    transform: translate(-50%, -60%) rotate(45deg) scale(0);
+    transition: transform 0.2s ease;
+}
+
+#ingredients input[type="checkbox"]:checked {
+    background:
+        linear-gradient(135deg, #028391, #01204E) padding-box,
+        linear-gradient(135deg, #F85525, #FAA968, #028391) border-box;
+}
+
+#ingredients input[type="checkbox"]:checked::after {
+    border-color: #F6DCAC;
+    transform: translate(-50%, -60%) rotate(45deg) scale(1);
 }

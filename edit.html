@@ -4,6 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="styles.css">
         <title>Document</title>
     </head>
@@ -14,9 +17,36 @@
 
             </div>
             <span>
-                <a href="index.html">Home</a>
+                <a href="index.html">All Recipes</a>
             </span>
             <div id="text-area">
+                <div id="text-toolbar">
+                    <button type="button" id="btn-bullet" title="Bullet list">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <circle cx="3" cy="4" r="1.5"/>
+                            <rect x="6" y="3" width="9" height="2" rx="1"/>
+                            <circle cx="3" cy="8" r="1.5"/>
+                            <rect x="6" y="7" width="9" height="2" rx="1"/>
+                            <circle cx="3" cy="12" r="1.5"/>
+                            <rect x="6" y="11" width="9" height="2" rx="1"/>
+                        </svg>
+                    </button>
+                    <button type="button" id="btn-number" title="Numbered list">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <text x="1" y="5.5" font-size="5" font-weight="700" font-family="sans-serif">1</text>
+                            <rect x="6" y="3" width="9" height="2" rx="1"/>
+                            <text x="1" y="9.5" font-size="5" font-weight="700" font-family="sans-serif">2</text>
+                            <rect x="6" y="7" width="9" height="2" rx="1"/>
+                            <text x="1" y="13.5" font-size="5" font-weight="700" font-family="sans-serif">3</text>
+                            <rect x="6" y="11" width="9" height="2" rx="1"/>
+                        </svg>
+                    </button>
+                    <button type="button" id="btn-clear" title="Clear instructions">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M5.5 2V1h5v1h3.5v1.5h-1l-.8 10.1a1 1 0 01-1 .9H4.8a1 1 0 01-1-.9L3 4.5H2V3h3.5zm1.5 3v7h1V5H7zm2 0v7h1V5H9z"/>
+                        </svg>
+                    </button>
+                </div>
                 <textarea id="instruction_body" cols="30" rows="10" placeholder="Instructions..."></textarea>
             </div>
             <form id="ingredient_form">
