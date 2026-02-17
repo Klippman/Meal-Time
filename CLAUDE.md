@@ -28,6 +28,18 @@ Recipes and ingredients are stored as JSON arrays in localStorage. Each recipe h
 
 Hash-based: `index.html#` for the list, `edit.html#<recipeId>` for editing. Navigation uses `location.assign()`.
 
+### Script Load Order
+
+Both HTML pages load scripts at the bottom of the body in a strict order: `uuidv4.js` → `models.js` → page script (`home.js` or `editor.js`). Classes from earlier scripts are used as globals by later ones (e.g., `RecipeStore`, `Recipe`, `Ingredient`). No module system.
+
 ### Rendering Pattern
 
-Imperative DOM manipulation via `document.createElement()`. Filter objects (`{searchText, hideCompleted}`) control what's displayed. Changes trigger full re-renders of the relevant section.
+Imperative DOM manipulation via `document.createElement()`. Filter objects (`{searchText, hideCompleted}`) control what's displayed. Changes trigger full re-renders of the relevant section (`.innerHTML = ''` then rebuild).
+
+### Editor Toolbar
+
+The edit page has a text toolbar with bullet list, numbered list, and clear buttons. Pressing Enter auto-continues the current list format (bullets or incrementing numbers). Typing on an empty list line and pressing Enter removes the prefix instead.
+
+### Color Palette
+
+The UI uses a consistent set of CSS colors: `#01204E` (dark navy), `#028391` (teal), `#F6DCAC` (warm beige), `#F85525` (orange-red), `#FAA968` (soft orange). Gradients built from these are used throughout. Font: Poppins (Google Fonts).
